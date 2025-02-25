@@ -3,6 +3,7 @@ import { RotatingLines } from "react-loader-spinner"
 import { useNavigate, useParams } from "react-router-dom"
 import Categoria from "../../../models/Categorias"
 import { deletar, listar } from "../../../service/Service"
+import { ToastAlerta } from "../../../utils/ToastAlerta"
 
 function DeletarCategoria() {
 
@@ -17,7 +18,7 @@ function DeletarCategoria() {
         try {
             await listar(`/categorias/${id}`, setCategoria)
         } catch (error: any) {
-            alert('Categoria não encontrada!')
+            ToastAlerta('Categoria não encontrada!','erro')
         }
     }
 
@@ -33,10 +34,10 @@ function DeletarCategoria() {
         try {
             await deletar(`/categorias/${id}`)
 
-            alert('Categoria apagada com sucesso')
+            ToastAlerta('Categoria apagada com sucesso', 'sucesso')
 
         } catch (error) {
-            alert('Erro ao apagar a categoria')
+            ToastAlerta('Erro ao apagar a categoria', 'erro')
         }
 
         setIsLoading(false)
@@ -54,7 +55,7 @@ function DeletarCategoria() {
                 Você tem certeza de que deseja apagar a categoria a seguir?</p>
             <div className='border flex flex-col rounded-2xl overflow-hidden justify-between'>
                 <header
-                    className='py-2 px-6 bg-slate-600 text-white font-bold text-2xl'>
+                    className='py-2 px-6 bg-teal-900 text-white font-bold text-2xl'>
                     Categoria
                 </header>
                 <p className='p-8 text-3xl bg-white h-full'>{categoria.nome}</p>
@@ -66,7 +67,7 @@ function DeletarCategoria() {
                         Não
                     </button>
                     <button
-                        className='w-full text-slate-100 bg-teal-400 hover:bg-teal-700
+                        className='w-full text-slate-100 bg-teal-800 hover:bg-teal-700
                          flex items-center justify-center'
                         onClick={deletarCategoria}
                     >
